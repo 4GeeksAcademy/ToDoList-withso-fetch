@@ -12,11 +12,11 @@ const Home = () => {
 	console.log(content);
 
 	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">TODOS</h1>
-				<ul>
-					<InputData />
-				</ul>
+		<div className="container main-container p-1">
+			<div className="fulldiv">
+				<h1 className="mt-5 header text-center text-dark ps-4 pe-4">TODO LIST</h1>
+				<InputData />
+			</div>
 		</div>
 	);
 };

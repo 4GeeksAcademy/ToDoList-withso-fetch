@@ -1,27 +1,44 @@
+import { object } from "prop-types";
 import React from "react";
 import { useState } from "react";
 
 export const InputData = (content, SetNewTask) => {
+    let nextId = crypto.randomUUID();
     const [inputData, SetInputData] = useState('');
-    const [liContent, setliContent] = useState(['']);
+    const [liContent, setliContent] = useState([])
+    let arrAmmount = liContent.length;
+    const remainingTask = liContent.filter(task => task.id ==! liContent.id)
+    console.log(arrAmmount);
 
     return (
-        <div className="">
-            <form onSubmit ={ (event) => {
-                setliContent(inputData);
+        <div className="lista-tareas">
+            <form className="form"   onSubmit ={ (event) => {
+                setliContent(
+                    [...liContent, 
+                    {id: crypto.randomUUID(), 
+                    content: inputData}
+                    ]
+                );
                 event.preventDefault();
-                console.log(liContent);
-            }} action="full-form">
-                <input onChange = { (event) => {
+                event.target.reset(); 
+                console.log(inputData);
+            }}action="full-form">
+                <input className="input fs-5" onChange = { (event) => {
                     SetInputData(event.target.value);
                     console.log(inputData);
-                }}
+                    }
+                }
                  type ="text"
                  placeholder ="Whats needs to be done" />
-                 	<li> {liContent} </li>
-					<li> {liContent} </li>
-					<li> {liContent} </li>
-					<li> {liContent} </li>	
+                 <ul className="fs-5">
+                 	{liContent.map(liContent =>(
+                        <li className="item text-sm-left" key={ liContent.id }> { liContent.content }  
+                        </li> 
+                            )
+                        )
+                    }
+                    <div className="footer"> {arrAmmount} items left</div>
+                </ul>
             </form>
         </div>
     );
