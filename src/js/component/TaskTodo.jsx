@@ -3,10 +3,13 @@ import React from "react";
 import { useState } from "react";
 
 export const InputData = (content, SetNewTask) => {
-    let nextId = crypto.randomUUID();
+    
+    let nextId = Math.floor(Math.random()*9999);
     const [inputData, SetInputData] = useState('');
     const [liContent, setliContent] = useState([])
+
     let arrAmmount = liContent.length;
+
     function taskFilter () {
         if(arrAmmount <= 0){
             return "There is no active task. Please add one";
@@ -15,38 +18,36 @@ export const InputData = (content, SetNewTask) => {
             return `${arrAmmount} active task`;
         }
     }
-    const remainingTask = ([liContent.filter(newContentli => newContentli.id ==! liContent.id)]);
-    console.log(remainingTask);
 
     return (
+        
         <div className="lista-tareas">
             <form className="form"   onSubmit ={ (event) => {
                 setliContent(
                     [...liContent, 
-                    {id: crypto.randomUUID(), 
+                    {id: nextId, 
                     content: inputData}
                     ]
                 );
+                console.log(liContent);
                 event.preventDefault();
                 event.target.reset(); 
-                console.log(inputData);
             }}action="full-form">
-                <input className="input fs-5" onChange = { (event) => {
+                <input className="input fs-5" 
+                    onChange = { (event) => {
                     SetInputData(event.target.value);
-                    console.log(inputData);
                     }
                 }
-                 type ="text"
-                 placeholder ="Whats needs to be done" />
+                    type ="text"
+                    placeholder ="Whats needs to be done" />
                  <ul className="fs-5">
-                 	{liContent.map(liContent =>(
-                        <li className="item text-sm-left" key={ liContent.id }> { liContent.content }  
+                 	{liContent.map(EachliContent =>(
+                        <li className="item text-sm-left" key={ EachliContent.id }> { EachliContent.content }  
                         <div className="">
-                            <i className="fa-solid fa-xmark" key={ liContent.id } onClick={
-                                (event)=>{
-                                    event.target = liContent.id;
-                                    event = console.log(event.target);
-                                    setliContent(remainingTask);
+                            <i className="fa-solid fa-xmark" key={ EachliContent.id } onClick={
+                                ()=>{
+                                    const remainingTask = (liContent.filter(newContentli => newContentli.id ==! liContent.id));
+                                    setliContent(remainingTask)
                                     }
                                 }></i>
                         </div>

@@ -34,12 +34,6 @@ ul{
     flex-direction: column;
     align-items: center;
     border-radius: 15px;
-    box-shadow:
-      1px 2px 2px hsl(220deg 60% 50% / 0.2),
-      2px 4px 4px hsl(220deg 60% 50% / 0.2),
-      4px 8px 8px hsl(220deg 60% 50% / 0.2),
-      8px 16px 16px hsl(220deg 60% 50% / 0.2),
-      16px 32px 32px hsl(220deg 60% 50% / 0.2);
     animation-name: floating;
     animation-duration: 3s;
     animation-iteration-count: infinite;
