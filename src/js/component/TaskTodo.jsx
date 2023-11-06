@@ -3,8 +3,7 @@ import React from "react";
 import { useState } from "react";
 
 export const InputData = (content, SetNewTask) => {
-    
-    let nextId = Math.floor(Math.random()*9999);
+
     const [inputData, SetInputData] = useState('');
     const [liContent, setliContent] = useState([])
 
@@ -25,7 +24,7 @@ export const InputData = (content, SetNewTask) => {
             <form className="form"   onSubmit ={ (event) => {
                 setliContent(
                     [...liContent, 
-                    {id: nextId, 
+                    {id: crypto.randomUUID(),
                     content: inputData}
                     ]
                 );
@@ -44,10 +43,12 @@ export const InputData = (content, SetNewTask) => {
                  	{liContent.map(EachliContent =>(
                         <li className="item text-sm-left" key={ EachliContent.id }> { EachliContent.content }  
                         <div className="">
-                            <i className="fa-solid fa-xmark" key={ EachliContent.id } onClick={
-                                ()=>{
-                                    const remainingTask = (liContent.filter(newContentli => newContentli.id ==! liContent.id));
+                            <i className="fa-solid fa-xmark" onClick={
+                                (event)=>{
+                                    const remainingTask = liContent.filter(newContentli => newContentli.id !== event.target);
                                     setliContent(remainingTask)
+                                    console.log(event.target.value)
+                                    console.log(remainingTask)
                                     }
                                 }></i>
                         </div>
