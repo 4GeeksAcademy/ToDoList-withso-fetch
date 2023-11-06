@@ -15,8 +15,8 @@ export const InputData = (content, SetNewTask) => {
             return `${arrAmmount} active task`;
         }
     }
-    const remainingTask = liContent.filter(task => task.id ==! liContent.id)
-    console.log(arrAmmount);
+    const remainingTask = ([liContent.filter(newContentli => newContentli.id ==! liContent.id)]);
+    console.log(remainingTask);
 
     return (
         <div className="lista-tareas">
@@ -41,6 +41,15 @@ export const InputData = (content, SetNewTask) => {
                  <ul className="fs-5">
                  	{liContent.map(liContent =>(
                         <li className="item text-sm-left" key={ liContent.id }> { liContent.content }  
+                        <div className="">
+                            <i className="fa-solid fa-xmark" key={ liContent.id } onClick={
+                                (event)=>{
+                                    event.target = liContent.id;
+                                    event = console.log(event.target);
+                                    setliContent(remainingTask);
+                                    }
+                                }></i>
+                        </div>
                         </li> 
                             )
                         )

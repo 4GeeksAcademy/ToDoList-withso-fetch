@@ -21,7 +21,7 @@ ul{
     padding-top: 5vw;
     padding-bottom: 5vw;
     padding-left: 5vw;
-    padding-right: 5vw;
+    padding-right: 12vw;
 }
 
 
@@ -67,15 +67,16 @@ ul{
 
 .header{
     font-size: 30px;
-    background-color:whitesmoke;
+    background-color:white;
     padding: 7px;
     border-radius: 15px;
     margin-bottom: 5px;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     min-width: 60%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-    color: #262729
+    box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
+    color: #262729;
+    letter-spacing: 4px;
 }
 
 .input{
@@ -95,7 +96,7 @@ ul{
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     opacity: 75%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
     
 }
 
@@ -112,13 +113,26 @@ ul{
 }
 
 .item{
+    display: flex;
     background-color: white;
     border-radius: 15px;
     padding: 4px;
-    padding-left: 15px;
+    padding-left: 8px;
     margin-left: 15px;
     min-width: 90%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    box-shadow: 0 7px 30px -10px rgba(150,170,180,0.5);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 85px;
+    padding-right: 8px;
+    padding-bottom: 4px;
+    cursor: pointer;
+    transition: transform 250ms;
+}
+
+.item:hover{
+    transform: translateX(+4px);
 }
 
 .footer{
@@ -127,6 +141,18 @@ ul{
     color: white;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.fa-solid{
+    cursor:pointer;
+    padding-top: 5px;
+    color: black;
+    transition: color 0.2sg ease;
+}
+
+.fa-solid:hover{
+    color:  red;
+    font-size: 25px;
 }
 /*
 .listas-tareas{
