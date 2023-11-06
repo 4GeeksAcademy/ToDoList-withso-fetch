@@ -7,6 +7,14 @@ export const InputData = (content, SetNewTask) => {
     const [inputData, SetInputData] = useState('');
     const [liContent, setliContent] = useState([])
     let arrAmmount = liContent.length;
+    function taskFilter () {
+        if(arrAmmount <= 0){
+            return "There is no active task. Please add one";
+        }
+        if(arrAmmount >= 1){
+            return `${arrAmmount} active task`;
+        }
+    }
     const remainingTask = liContent.filter(task => task.id ==! liContent.id)
     console.log(arrAmmount);
 
@@ -37,7 +45,7 @@ export const InputData = (content, SetNewTask) => {
                             )
                         )
                     }
-                    <div className="footer"> {arrAmmount} items left</div>
+                    <div className="footer"> {taskFilter()}</div>
                 </ul>
             </form>
         </div>

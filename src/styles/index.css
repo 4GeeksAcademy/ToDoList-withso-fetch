@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@300;400;500;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Orbitron:wght@500&family=Roboto:wght@300;400;500;700;900&display=swap');
 
-body{
+html,body{
     font-family: 'Montserrat', sans-serif;
     font-family: 'Orbitron', sans-serif;
     font-family: 'Roboto', sans-serif;
+    background-color: #e1ede8;
 }
 
 
@@ -16,7 +17,6 @@ ul{
 }
 
 #app{
-    background: aqua;
     height: fit-content;
     padding-top: 5vw;
     padding-bottom: 5vw;
@@ -26,15 +26,20 @@ ul{
 
 
 .fulldiv{
-    background-color: #4158D0;
-    background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%); 
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
     display: flex;
     padding: 20px;
     min-width: 40%;
     flex-direction: column;
     align-items: center;
     border-radius: 15px;
-    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+    box-shadow:
+      1px 2px 2px hsl(220deg 60% 50% / 0.2),
+      2px 4px 4px hsl(220deg 60% 50% / 0.2),
+      4px 8px 8px hsl(220deg 60% 50% / 0.2),
+      8px 16px 16px hsl(220deg 60% 50% / 0.2),
+      16px 32px 32px hsl(220deg 60% 50% / 0.2);
     animation-name: floating;
     animation-duration: 3s;
     animation-iteration-count: infinite;
@@ -45,7 +50,7 @@ ul{
 
 @keyframes floating {
     0% { transform: translate(0,  0px); }
-    50%  { transform: translate(0, 5px); }
+    50%  { transform: translate(0, 6px); }
     100%   { transform: translate(0, -0px); }    
 }
 
@@ -69,7 +74,8 @@ ul{
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     min-width: 60%;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    color: #262729
 }
 
 .input{
@@ -89,13 +95,13 @@ ul{
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
     opacity: 75%;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
     
 }
 
 .input:hover{
-    transform: translateY(-7px);
-    border: 1px solid #FFD700;
+    transform: translateY(-4px);
+    border: 1px solid #1899e3;
     opacity: 100%;
 }
 
@@ -112,7 +118,7 @@ ul{
     padding-left: 15px;
     margin-left: 15px;
     min-width: 90%;
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
 .footer{

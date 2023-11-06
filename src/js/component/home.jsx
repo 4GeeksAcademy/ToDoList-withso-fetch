@@ -14,7 +14,7 @@ const Home = () => {
 	return (
 		<div className="container main-container p-1">
 			<div className="fulldiv">
-				<h1 className="mt-5 header text-center text-dark ps-4 pe-4">TODO LIST</h1>
+				<h1 className="mt-5 header text-center ps-4 pe-4">TODO LIST</h1>
 				<InputData />
 			</div>
 		</div>
