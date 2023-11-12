@@ -142,11 +142,13 @@ ul{
     padding-top: 5px;
     color: black;
     transition: color 0.2sg ease;
+    opacity: 0%;
 }
 
 .fa-solid:hover{
     color:  red;
     font-size: 25px;
+    opacity: 100%;
 }
 /*
 .listas-tareas{
