@@ -1,4 +1,3 @@
-import { object } from "prop-types";
 import React from "react";
 import { useState } from "react";
 
@@ -22,26 +21,33 @@ export const InputData = () => {
         }
     }
 
+    function formSumbit(event){
+        event.preventDefault();
+            if(inputData.trim() === ""){
+                alert('please enter a task')
+                setIsInputEmpty(true);
+            }else{
+                setliContent(
+                    [...liContent, 
+                    {id: crypto.randomUUID(),
+                    content: inputData}
+                    ]);
+                setIsInputEmpty(false);
+                event.target.reset();
+                setInputData("");
+            }  
+    }
+
+    function removeTask(taskId){
+        const remainingTask = liContent.filter(newContentli => newContentli.id !== taskId );
+            setliContent(remainingTask)
+    }
+
     return (
         
         <div className="lista-tareas">
-            <form className="form"   onSubmit ={ (event) => {
-                event.preventDefault();
-                if(inputData.trim() === ""){
-                    alert('please enter a task')
-                    setIsInputEmpty(true);
-                }else{
-                    setliContent(
-                        [...liContent, 
-                        {id: crypto.randomUUID(),
-                        content: inputData}
-                        ]);
-                    console.log(event.target)
-                    setIsInputEmpty(false);
-                    event.target.reset();
-                    setInputData("");
-                }  
-            }}
+            <form className="form"   onSubmit ={formSumbit}  
+            
             action="full-form">
                 <input className={`input fs-5 ${isInputEmpty ? "empty" : ""}`}
                     onChange = { (event) => {
@@ -55,14 +61,7 @@ export const InputData = () => {
                  	{liContent.map(EachliContent =>(
                         <li className="item text-sm-left" key={ EachliContent.id }> { EachliContent.content }  
                         <div className="icon-marker">
-                            <i className="fa-solid fa-xmark" onClick={
-                                (event)=>{
-                                    const remainingTask = liContent.filter(newContentli => newContentli.id !== EachliContent.id );
-                                    setliContent(remainingTask)
-                                    console.log(event.target.value)
-                                    console.log(remainingTask)
-                                    }
-                                }></i>
+                            <i className="fa-solid fa-xmark" onClick={() =>{removeTask(EachliContent.id)}}></i>
                         </div>
                         </li> 
                             )
