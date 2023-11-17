@@ -3,12 +3,12 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 
 
-const API_URL = "https://playground.4geeks.com/apis/fake/todos/user"
+const API_URL = "https://playground.4geeks.com/apis/fake/todos/user/yoels"
 export const InputData = () => {
     
     const getList = async (URL) => {
         try{
-            const response = await fetch(URL + '/withyso');
+            const response = await fetch(URL);
             if(response.status !== 200){
                 throw new Error(`Ocurrio un error ${response.status}`)
             }
@@ -19,8 +19,8 @@ export const InputData = () => {
             const body = await response.json();
             setTestData([{
                 dataBody: body
-
             }])
+            console.log(testData);
         } catch(error){
             console.log(error)
             return false;
@@ -29,17 +29,27 @@ export const InputData = () => {
 
     const createList = async (URL) => {
         try{ 
-            const response = await fetch(URL + '/withyso',{ 
+            const response = await fetch(URL, { 
                 method: "POST",
-                body: [],
-                headers: {"Content-Type": "Application/json"}
+                body: JSON.stringify([]),
+                headers: {"Content-Type": "application/json"}
             })
+            console.log(response);
         }catch(error){
             console.log(error);
         }
     }
     
-    createList();
+
+    const updateList = async (URL) => {
+        try {
+
+        }catch(error) {
+            console.log("ha ocurrido un nuevo error")
+        }
+    }
+
+    getList(API_URL);
    
 
     const [testData, setTestData] = useState([]);
