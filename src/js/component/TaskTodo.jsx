@@ -24,7 +24,6 @@ export const InputData = () => {
             const body = await response.json();
             setliContent(body);
             console.log('La lista se visualiza correctamente')
-            console.log(body);
         }catch(error){
             console.log(error);
         }
@@ -50,13 +49,37 @@ export const InputData = () => {
                 body: JSON.stringify(liContent),
                 headers: { 'Content-type': 'application/json' }
             });
-            console.log(response.body);
-            getList();
+            if(response.ok){
+                getList();
+            }
         }catch(error){
             console.log(error);
         }
     }
 
+    const formHandler = (prev) => {
+        setliContent([{label: inputData, done: false}, ...liContent  ]);
+        console.log(liContent);
+        updateList();
+        setInputData(""); 
+        setIsInputEmpty(false);
+    }
+    /*
+    const deleteList = async () => {
+        try{
+            const response = await fetch(API__URL, {
+                method: "DELETE",
+                headers: { 'Content-type': 'application/json' }
+            });
+            if(response ==! 200){
+                console.log('ha ocurrido un problema al eliminar')
+            }
+            createList();
+        }catch(error){
+            console.log(error);
+        }
+    }
+    */
     useEffect(() => {
         getList();
     }, [])
@@ -78,22 +101,14 @@ export const InputData = () => {
     return (
         
         <div className="lista-tareas">
-            <button className="btn btn-warning" onClick={updateList}> add task </button>
             <form className="form"   onSubmit ={ (event) => {
                 event.preventDefault();
                 if(inputData.trim() === ""){
                     alert('please enter a task')
                     setIsInputEmpty(true);
                 }else{
-                    setliContent(
-                        [...liContent, 
-                        {
-                        label: inputData,
-                        done: false},
-                        ]);
-                    setIsInputEmpty(false);
-                    event.target.reset();
-                    setInputData(""); 
+                    formHandler(inputData);
+                    event.target.reset();  
                 }  
             }}
             action="full-form">
@@ -113,8 +128,7 @@ export const InputData = () => {
                                 (event)=>{
                                     const remainingTask = liContent.filter(newContentli => newContentli.id !== EachliContent.id );
                                     setliContent(remainingTask)
-                                    console.log(event.target.value)
-                                    console.log(remainingTask)
+                                    updateList();
                                     }
                                 }></i>
                         </div>
@@ -122,6 +136,7 @@ export const InputData = () => {
                             )
                         )
                     }
+                    <button className="btn btn-warning"> Restart list </button>
                     <div className="footer"> {taskFilter()}</div>
                 </ul>
             </form>
