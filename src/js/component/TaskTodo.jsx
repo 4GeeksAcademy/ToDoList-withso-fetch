@@ -2,60 +2,64 @@ import { object } from "prop-types";
 import React, { useEffect } from "react";
 import { useState } from "react";
 
+const API__URL = 'https://playground.4geeks.com/apis/fake/todos/user/yoels'
 
-const API_URL = "https://playground.4geeks.com/apis/fake/todos/user/yoels"
 export const InputData = () => {
-    
-    const getList = async (URL) => {
+
+    const [inputData, setInputData] = useState('');
+    const [liContent, setliContent] = useState([]);
+    const [isInputEmpty, setIsInputEmpty] = useState(false);
+
+    const getList = async () => {
         try{
-            const response = await fetch(URL);
+            const response = await fetch(API__URL);
             if(response.status !== 200){
-                throw new Error(`Ocurrio un error ${response.status}`)
+                console.log("Ha ocurrido un error", error)
+                return
             }
-            if(response.status !== 304){
-                console.log("necesitamos crear la lista")
+            if(response.status == 404){
+                console.log('Debemos crear una lista')
                 createList();
             }
             const body = await response.json();
-            setTestData([{
-                dataBody: body
-            }])
-            console.log(testData);
-        } catch(error){
-            console.log(error)
-            return false;
-        }
-    }
-
-    const createList = async (URL) => {
-        try{ 
-            const response = await fetch(URL, { 
-                method: "POST",
-                body: JSON.stringify([]),
-                headers: {"Content-Type": "application/json"}
-            })
-            console.log(response);
+            setliContent(body);
+            console.log('La lista se visualiza correctamente')
+            console.log(body);
         }catch(error){
             console.log(error);
         }
     }
-    
 
-    const updateList = async (URL) => {
+    const createList = async () => {
         try {
-
-        }catch(error) {
-            console.log("ha ocurrido un nuevo error")
+            const response = await fetch(API__URL, {
+                method: "POST",
+                body: JSON.stringify([]),
+                headers: { 'Content-type': 'application/json' }
+            });
+            getList();
+        } catch (error) {
+            console.log(error);
         }
     }
 
-    getList(API_URL);
-   
+    const updateList = async () =>{
+        try{
+            const response = await fetch(API__URL, {
+                method: "PUT",
+                body: JSON.stringify(liContent),
+                headers: { 'Content-type': 'application/json' }
+            });
+            console.log(response.body);
+            getList();
+        }catch(error){
+            console.log(error);
+        }
+    }
 
-    const [testData, setTestData] = useState([]);
-    const [inputData, setInputData] = useState('');
-    const [liContent, setliContent] = useState([]);
-    const [isInputEmpty, setIsInputEmpty] = useState(false);
+    useEffect(() => {
+        getList();
+    }, [])
 
     let arrAmmount = liContent.length;
 
@@ -74,6 +78,7 @@ export const InputData = () => {
     return (
         
         <div className="lista-tareas">
+            <button className="btn btn-warning" onClick={updateList}> add task </button>
             <form className="form"   onSubmit ={ (event) => {
                 event.preventDefault();
                 if(inputData.trim() === ""){
@@ -82,12 +87,12 @@ export const InputData = () => {
                 }else{
                     setliContent(
                         [...liContent, 
-                        {id: crypto.randomUUID(),
-                        content: inputData}
+                        {
+                        label: inputData,
+                        done: false},
                         ]);
-                    console.log(event.target)
                     setIsInputEmpty(false);
-                    event.target.reset();+
+                    event.target.reset();
                     setInputData(""); 
                 }  
             }}
@@ -102,7 +107,7 @@ export const InputData = () => {
                     placeholder ="Whats needs to be done" />
                  <ul className="fs-5">
                  	{liContent.map(EachliContent =>(
-                        <li className="item text-sm-left" key={ EachliContent.id }> { EachliContent.content }  
+                        <li className="item text-sm-left" key={ EachliContent.id }> { EachliContent.label }  
                         <div className="icon-marker">
                             <i className="fa-solid fa-xmark" onClick={
                                 (event)=>{
