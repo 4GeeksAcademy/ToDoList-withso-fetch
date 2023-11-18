@@ -7,7 +7,7 @@ const API__URL = 'https://playground.4geeks.com/apis/fake/todos/user/yoels'
 export const InputData = () => {
 
     const [inputData, setInputData] = useState('');
-    const [liContent, setliContent] = useState([]);
+    const [liContent, setliContent] = useState(['']);
     const [isInputEmpty, setIsInputEmpty] = useState(false);
 
     const getList = async () => {
@@ -46,7 +46,7 @@ export const InputData = () => {
         try{
             const response = await fetch(API__URL, {
                 method: "PUT",
-                body: JSON.stringify(liContent),
+                body: JSON.stringify([...liContent, {label: inputData, done: false}]),
                 headers: { 'Content-type': 'application/json' }
             });
             if(response.ok){
@@ -57,11 +57,23 @@ export const InputData = () => {
         }
     }
 
-    const formHandler = (prev) => {
-        setliContent([{label: inputData, done: false}, ...liContent  ]);
-        console.log(liContent);
+    const deleteItem = async (arreglo) =>{
+        try{
+            const response = await fetch(API__URL, {
+                method: "PUT",
+                body: JSON.stringify(arreglo),
+                headers: { 'Content-type': 'application/json' }
+            });
+            if(response.ok){
+                getList();
+            }
+        }catch(error){
+            console.log(error);
+        }
+    }
+    console.log(liContent);
+    const formHandler = () => {
         updateList();
-        setInputData(""); 
         setIsInputEmpty(false);
     }
     /*
@@ -107,7 +119,7 @@ export const InputData = () => {
                     alert('please enter a task')
                     setIsInputEmpty(true);
                 }else{
-                    formHandler(inputData);
+                    formHandler();
                     event.target.reset();  
                 }  
             }}
@@ -127,8 +139,8 @@ export const InputData = () => {
                             <i className="fa-solid fa-xmark" onClick={
                                 (event)=>{
                                     const remainingTask = liContent.filter(newContentli => newContentli.id !== EachliContent.id );
-                                    setliContent(remainingTask)
-                                    updateList();
+                                    deleteItem(remainingTask);
+                                    console.log(liContent)
                                     }
                                 }></i>
                         </div>

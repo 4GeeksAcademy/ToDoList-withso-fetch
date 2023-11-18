@@ -9,7 +9,6 @@ import { InputData } from "./TaskTodo";
 //create your first component
 const Home = () => {
 	const [content, setContent] = useState([''])
-	console.log(content);
 
 	return (
 		<div className="container main-container p-1">
