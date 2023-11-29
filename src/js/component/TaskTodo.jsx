@@ -18,8 +18,9 @@ export const InputData = () => {
                 return
             }
             if(response.status == 404){
-                console.log('Debemos crear una lista')
                 createList();
+                console.log('Debemos crear una lista')
+               
             }
             const body = await response.json();
             setliContent(body);
@@ -36,28 +37,14 @@ export const InputData = () => {
                 body: JSON.stringify([]),
                 headers: { 'Content-type': 'application/json' }
             });
+
             getList();
         } catch (error) {
             console.log(error);
         }
     }
 
-    const updateList = async () =>{
-        try{
-            const response = await fetch(API__URL, {
-                method: "PUT",
-                body: JSON.stringify([...liContent, {label: inputData, done: false}]),
-                headers: { 'Content-type': 'application/json' }
-            });
-            if(response.ok){
-                getList();
-            }
-        }catch(error){
-            console.log(error);
-        }
-    }
-
-    const deleteItem = async (arreglo) =>{
+    const updateItem = async (arreglo) =>{
         try{
             const response = await fetch(API__URL, {
                 method: "PUT",
@@ -71,27 +58,20 @@ export const InputData = () => {
             console.log(error);
         }
     }
-    console.log(liContent);
-    const formHandler = () => {
-        updateList();
-        setIsInputEmpty(false);
-    }
-    /*
-    const deleteList = async () => {
+
+    const deleteItem = async () =>{
         try{
             const response = await fetch(API__URL, {
                 method: "DELETE",
-                headers: { 'Content-type': 'application/json' }
             });
-            if(response ==! 200){
-                console.log('ha ocurrido un problema al eliminar')
+            if(response.ok){
+                createList();
             }
-            createList();
         }catch(error){
             console.log(error);
         }
     }
-    */
+
     useEffect(() => {
         getList();
     }, [])
@@ -119,7 +99,9 @@ export const InputData = () => {
                     alert('please enter a task')
                     setIsInputEmpty(true);
                 }else{
-                    formHandler();
+                    const newArr = [...liContent, {label: inputData, done: false}];
+                    updateItem(newArr);
+                    console.log(liContent);
                     event.target.reset();  
                 }  
             }}
@@ -134,12 +116,12 @@ export const InputData = () => {
                     placeholder ="Whats needs to be done" />
                  <ul className="fs-5">
                  	{liContent.map(EachliContent =>(
-                        <li className="item text-sm-left" key={ EachliContent.id }> { EachliContent.label }  
+                        <li className="item text-sm-left" id={EachliContent.id} key={ EachliContent.id }> { EachliContent.label }  
                         <div className="icon-marker">
                             <i className="fa-solid fa-xmark" onClick={
                                 (event)=>{
                                     const remainingTask = liContent.filter(newContentli => newContentli.id !== EachliContent.id );
-                                    deleteItem(remainingTask);
+                                    updateItem(remainingTask);
                                     console.log(liContent)
                                     }
                                 }></i>
@@ -148,7 +130,6 @@ export const InputData = () => {
                             )
                         )
                     }
-                    <button className="btn btn-warning"> Restart list </button>
                     <div className="footer"> {taskFilter()}</div>
                 </ul>
             </form>
