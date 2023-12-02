@@ -19,8 +19,7 @@ export const InputData = () => {
             }
             if(response.status == 404){
                 createList();
-                console.log('Debemos crear una lista')
-               
+                console.log('Debemos crear una lista')  
             }
             const body = await response.json();
             setliContent(body);
@@ -73,7 +72,7 @@ export const InputData = () => {
     }
 
     useEffect(() => {
-        getList();
+        createList();
     }, [])
 
     let arrAmmount = liContent.length;
